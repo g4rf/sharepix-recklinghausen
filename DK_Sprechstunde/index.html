@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<!--
+Made from jankossick@online.de with the help of MDN and Stackoverflow.
+-->
+<html><head>
+    <title>sharepic generator</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        @font-face {
+            font-family: 'Bebas Neue';
+            src: url('fonts/BebasNeue-Regular.ttf');
+        }
+        @font-face {
+            font-family: 'DejaRip';
+            src: url('fonts/DejaRip.otf');
+        }
+        @font-face {
+            font-family: 'DejaRip Bold';
+            src: url('fonts/DejaRip-Bold.otf');
+        }
+        
+        *, ::before, ::after {
+            box-sizing: border-box;
+        }
+        
+        h2 {
+            margin: 0;
+            font-size: 1.3em;
+        }
+
+        info {
+            display: block;
+            position: fixed;
+            width: 300px;
+            margin: 10px;
+            padding: 10px;
+            background-color: #ccc;
+            border: solid 1px #bbb;
+            border-radius: 10px;
+        }
+        info label {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+        }
+        info label input {
+            width: 100%;
+        }
+        info hr {
+            margin: 20px 0;
+        }
+        .download {
+            display: block;
+            width: 100%;
+            cursor: pointer;
+            text-align: center;
+            margin: 20px 0 5px;
+        }
+
+        images {
+            display: block;
+            margin: 10px;
+            margin-left: 330px;
+        }
+
+        canvas {
+            margin: 1%;
+            border: solid 1px #000;
+        }
+    </style>
+</head><body>
+    <info>
+        <h2>rect</h2>
+        <label>
+            <div>headline</div>
+            <input type="text" id="rect-headline" value="Sprechstunde" />
+        </label>        
+        <label>
+            <div>text line</div>
+            <input type="text" id="rect-text1" value="Stephanie Henkel   Anne Herpertz" />
+        </label>        
+        <label>
+            <div>date</div>
+            <input type="text" id="rect-date" value="Freitag, 16. April" />
+        </label>
+        <label>
+            <div>time</div>
+            <input type="text" id="rect-time" value="16 bis 17 Uhr" />
+        </label>
+        <label>
+            <div>place</div>
+            <input type="text" id="rect-place" value="http://ro7.digital" />
+        </label>
+        
+        <a id="download-rect" class="download">download rectangle</a>
+        
+        <hr />
+        
+        <h2>square</h2>
+        <label>
+            <div>headline</div>
+            <input type="text" id="sqr-headline" value="Sprechstunde" />
+        </label>        
+        <label>
+            <div>text line</div>
+            <input type="text" id="sqr-text1" value="mit Stephanie Henkel und Anne Herpertz" />
+        </label>
+        
+        <label>
+            <div>date</div>
+            <input type="text" id="sqr-date" value="Freitag, 16. April · 16 bis 17 Uhr" />
+        </label>
+        <label>
+            <div>place</div>
+            <input type="text" id="sqr-place" value="http://ro7.digital" />
+        </label>
+        
+        <a id="download-square" class="download">download square</a>
+    </info>
+
+    <images>
+        <canvas id="sharepic-rect" width="1920" height="1080"></canvas>
+        <canvas id="sharepic-square" width="1080" height="1080"></canvas>
+    </images>
+
+    <script type="text/javascript">
+        
+        // canvas' and contexts
+        var canvasRect = document.getElementById("sharepic-rect");
+        var canvasSquare = document.getElementById("sharepic-square");
+        var rect = canvasRect.getContext('2d');
+        var square = canvasSquare.getContext('2d');
+        
+        // images
+        var logo = new Image();
+        var photo = new Image();
+        
+        // rect text
+        var rectHeadline = document.getElementById("rect-headline");
+        var rectText1 = document.getElementById("rect-text1");
+        var rectTime = document.getElementById("rect-time");
+        var rectDate = document.getElementById("rect-date");
+        var rectPlace = document.getElementById("rect-place");
+        
+        // square text
+        var sqrHeadline = document.getElementById("sqr-headline");
+        var sqrText1 = document.getElementById("sqr-text1");
+        var sqrDate = document.getElementById("sqr-date");
+        var sqrPlace = document.getElementById("sqr-place");
+        
+        // download link
+        var downloadRect = document.getElementById("download-rect");
+        var downloadSquare = document.getElementById("download-square");
+        
+        // timer for keyup interval
+        var timer = null;
+
+        var drawImages = function() {
+            var bgColor = "#ffffff";
+            var ddColor = "#e8e3e3";
+            var ddOrange = "#ff7628";
+            var ddBlack = "#191616";
+            var black = "#000000";
+            var white = "#ffffff";
+            
+            /*** rect ***/
+            rect.fillStyle = bgColor;
+            rect.fillRect(0, 0, 1920, 1080);
+            
+            // photo
+            rect.drawImage(photo, -480, -80, 2500 * 0.7, 1667 * 0.7);
+            
+            // bezier curve
+            rect.beginPath();
+            rect.fillStyle = bgColor;
+            rect.moveTo(900, 0);
+            rect.quadraticCurveTo(1200, 600, 950, 1080);
+            rect.lineTo(1920, 1080);
+            rect.lineTo(1920, 0);
+            rect.closePath();
+            rect.fill();
+            
+            // logo         
+            rect.drawImage(logo, 1610, 40, 2518 * 0.1, 1205 * 0.1);
+            
+            // black headline block
+            rect.fillStyle = black;
+            rect.fillRect(850, 750, 1050, 205);
+                        
+            // headline
+            rect.font = "217px 'Bebas Neue'";
+            rect.fillStyle = white;            
+            rect.fillText(rectHeadline.value, 870, 930);
+            
+            // text1
+            rect.font = "80px 'Bebas Neue'";
+            rect.fillStyle = black;
+            rect.fillText(rectText1.value, 1010, 1050);
+            
+            // date
+            rect.font = "100px 'DejaRip'";
+            rect.fillStyle = black;
+            rect.fillText(rectDate.value, 1100, 350);
+            
+            // time
+            rect.font = "100px 'DejaRip'";
+            rect.fillStyle = black;
+            rect.fillText(rectTime.value, 1100, 500);
+            
+            // location
+            rect.font = "100px 'DejaRip'";
+            rect.fillStyle = black;
+            rect.fillText(rectPlace.value, 1100, 650);
+                        
+            // create download link
+            canvasRect.toBlob(function(blob) {
+                downloadRect.download = "sharepic_dk-sprechstunde_"
+                        + rectDate.value.replace(/([^a-z0-9]+)/gi, '-')
+                        + "_rect.jpg";
+                downloadRect.href = URL.createObjectURL(blob);
+            }, "image/jpeg", 0.92);
+            
+            
+            /*** square ***/
+            square.fillStyle = bgColor;
+            square.fillRect(0, 0, 1080, 1080);
+            
+            // photo
+            square.drawImage(photo, -100, -90, 2500 * 0.5, 1667 * 0.5);
+            
+            // bezier curve
+            square.beginPath();
+            square.fillStyle = bgColor;
+            square.moveTo(0, 630);
+            square.quadraticCurveTo(540, 900, 1080, 650);
+            square.lineTo(1080, 1080);
+            square.lineTo(0, 1080);
+            square.closePath();
+            square.fill();
+            
+            // logo
+            square.globalAlpha = 0.6;
+            square.drawImage(logo, 860, 970, 2518 * 0.08, 1205 * 0.08);
+            square.globalAlpha = 1;
+            
+            // black headline block
+            square.fillStyle = black;
+            square.fillRect(70, 650, 730, 150);
+                        
+            // headline
+            square.font = "150px 'Bebas Neue'";
+            square.fillStyle = white;
+            square.fillText(sqrHeadline.value, 85, 780);
+            
+            // text1
+            square.font = "50px 'DejaRip'";
+            square.fillStyle = black;
+            square.fillText(sqrText1.value, 40, 880);
+            
+            // date
+            square.font = "60px 'DejaRip Bold'";
+            square.fillStyle = black;
+            square.fillText(sqrDate.value, 40, 970);
+                       
+            // location
+            square.font = "60px 'DejaRip Bold'";
+            square.fillStyle = black;
+            square.fillText(sqrPlace.value, 40, 1050);
+                        
+            // create download link
+            canvasSquare.toBlob(function(blob) {
+                downloadSquare.download = "sharepic_dk-sprechstunde_"
+                        + sqrDate.value.replace(/([^a-z0-9]+)/gi, '-')
+                        + "_square.jpg";
+                downloadSquare.href = URL.createObjectURL(blob);
+            }, "image/jpeg", 0.92);
+        };
+
+        // wait for document ready, images and fonts
+        var imagesLoaded = 0;
+        var totalImages = 3; // window, 2 images
+        var imageLoaded = function() {
+            imagesLoaded++;
+            if (imagesLoaded == totalImages) {
+                drawImages();
+                // workaround to wait for fonts
+                window.setTimeout(drawImages, 1000);
+            }
+        };
+
+        // window load
+        window.addEventListener("load", imageLoaded, false);
+        
+        // images
+        logo.addEventListener("load", imageLoaded, false);
+        logo.src = "img/pirdd-logo.png";
+        
+        photo.addEventListener("load", imageLoaded, false);
+        photo.src = "img/anneueckueck.jpg";
+        
+        // add eventlistener to inputs
+        document.querySelectorAll("input[type='text']").forEach(function(element) {
+            element.addEventListener("keyup", function() {
+                window.clearInterval(timer);
+                timer = window.setTimeout(drawImages, 1000);                
+            });
+        });
+    </script>
+</body></html>
