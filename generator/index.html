@@ -3,23 +3,19 @@
 Made from jankossick@online.de with the help of MDN and Stackoverflow.
 -->
 <html><head>
-    <title>sharepic generator</title>
+    <title>sharepix Recklinghausen</title>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.7">
 
     <style>
         @font-face {
-            font-family: 'Bebas Neue';
-            src: url('fonts/BebasNeue-Regular.ttf');
+            font-family: 'Arial MT Black';
+            src: url('fonts/ARIALMTBLACK.TTF');
         }
         @font-face {
-            font-family: 'DejaRip';
-            src: url('fonts/DejaRip.otf');
-        }
-        @font-face {
-            font-family: 'DejaRip Bold';
-            src: url('fonts/DejaRip-Bold.otf');
+            font-family: 'Arial';
+            src: url('fonts/ARIAL.TTF');
         }
         
         *, ::before, ::after {
@@ -28,13 +24,17 @@ Made from jankossick@online.de with the help of MDN and Stackoverflow.
         
         h2 {
             margin: 0;
-            font-size: 1.3em;
+            font-size: 1.7em;
+        }
+        
+        div, input, a, select {
+            font-size: 1.5em;
         }
 
         info {
             display: block;
             position: fixed;
-            width: 300px;
+            width: 500px;
             margin: 10px;
             padding: 10px;
             background-color: #ccc;
@@ -46,7 +46,7 @@ Made from jankossick@online.de with the help of MDN and Stackoverflow.
             width: 100%;
             margin-top: 10px;
         }
-        info label input {
+        info label input, info label select {
             width: 100%;
         }
         info hr {
@@ -63,7 +63,7 @@ Made from jankossick@online.de with the help of MDN and Stackoverflow.
         images {
             display: block;
             margin: 10px;
-            margin-left: 330px;
+            margin-left: 530px;
         }
 
         canvas {
@@ -73,234 +73,292 @@ Made from jankossick@online.de with the help of MDN and Stackoverflow.
     </style>
 </head><body>
     <info>
-        <h2>rect</h2>
+        <h2>design</h2>
         <label>
-            <div>headline</div>
-            <input type="text" id="rect-headline" value="Sprechstunde" />
-        </label>        
-        <label>
-            <div>text line</div>
-            <input type="text" id="rect-text1" value="Stephanie Henkel   Anne Herpertz" />
-        </label>        
-        <label>
-            <div>date</div>
-            <input type="text" id="rect-date" value="Freitag, 16. April" />
+          <div>logo</div>
+          <select size="1" id="logo-path">
+              <option value="img/logo-white.png">white logo</a>
+              <option value="img/logo-with-bg.png">logo with background</a>
+          </select>
         </label>
         <label>
-            <div>time</div>
-            <input type="text" id="rect-time" value="16 bis 17 Uhr" />
+          <div>background color</div>
+          <select size="1" id="bg-color">
+              <option value="#211E1D">#211E1D</a>
+              <option value="#302E2D">#302E2D</a>
+          </select>
         </label>
         <label>
-            <div>place</div>
-            <input type="text" id="rect-place" value="http://ro7.digital" />
+          <div>text background</div>
+          <select size="1" id="text-bg-color">
+              <option value="">none</a>
+              <option value="#F6881F">#F6881F</a>
+              <option value="#23A149">#23A149</a>
+              <option value="#04AB5D">#04AB5D</a>
+              <option value="#ED1A35">#ED1A35</a>
+              <option value="#7459A5">#7459A5</a>
+              <option value="#D73F96">#D73F96</a>
+              <option value="#9175B5">#9175B5</a>
+              <option value="#E54825">#E54825</a>
+          </select>
         </label>
-        
-        <a id="download-rect" class="download">download rectangle</a>
         
         <hr />
         
-        <h2>square</h2>
-        <label>
-            <div>headline</div>
-            <input type="text" id="sqr-headline" value="Sprechstunde" />
-        </label>        
-        <label>
-            <div>text line</div>
-            <input type="text" id="sqr-text1" value="mit Stephanie Henkel und Anne Herpertz" />
-        </label>
+        <h2>text</h2>        
         
         <label>
-            <div>date</div>
-            <input type="text" id="sqr-date" value="Freitag, 16. April · 16 bis 17 Uhr" />
+            <div>bold text line 1</div>
+            <input type="text" id="bold-text1" value="LASST UNSER" />
         </label>
         <label>
-            <div>place</div>
-            <input type="text" id="sqr-place" value="http://ro7.digital" />
+            <div>bold text line 2</div>
+            <input type="text" id="bold-text2" value="INTERNET IN RUHE" />
+        </label>
+        <label>
+            <div>small text line 1</div>
+            <input type="text" id="small-text1" value="" />
+        </label>
+        <label>
+            <div>small text line 2</div>
+            <input type="text" id="small-text2" value="" />
         </label>
         
-        <a id="download-square" class="download">download square</a>
+        <a id="download-text" class="download">download only text</a>
+        
+        <hr />
+        
+        <h2>image</h2>
+        
+        <label>
+            <div>bold text line 1</div>
+            <input type="text" id="bold-text3" value="LASST" />
+        </label>
+        <label>
+            <div>bold text line 2</div>
+            <input type="text" id="bold-text4" value="UNSER" />
+        </label>
+        <label>
+            <div>bold text line 3</div>
+            <input type="text" id="bold-text5" value="INTERNET" />
+        </label>
+        <label>
+            <div>bold text line 4</div>
+            <input type="text" id="bold-text6" value="IN RUHE" />
+        </label>
+        <label>
+            <div>small text line 1</div>
+            <input type="text" id="small-text3" value="" />
+        </label>
+        <label>
+            <div>small text line 2</div>
+            <input type="text" id="small-text4" value="" />
+        </label>
+        
+        <a id="download-image" class="download">download with image</a>
     </info>
 
     <images>
-        <canvas id="sharepic-rect" width="1920" height="1080"></canvas>
-        <canvas id="sharepic-square" width="1080" height="1080"></canvas>
+        <canvas id="sharepic-text" width="1920" height="1080"></canvas>
+        <canvas id="sharepic-image" width="1920" height="1080"></canvas>
     </images>
 
     <script type="text/javascript">
         
         // canvas' and contexts
-        var canvasRect = document.getElementById("sharepic-rect");
-        var canvasSquare = document.getElementById("sharepic-square");
-        var rect = canvasRect.getContext('2d');
-        var square = canvasSquare.getContext('2d');
+        var canvasText = document.getElementById("sharepic-text");
+        var canvasImage = document.getElementById("sharepic-image");
+        var text = canvasText.getContext('2d');
+        var image = canvasImage.getContext('2d');
         
         // images
         var logo = new Image();
         var photo = new Image();
         
-        // rect text
-        var rectHeadline = document.getElementById("rect-headline");
-        var rectText1 = document.getElementById("rect-text1");
-        var rectTime = document.getElementById("rect-time");
-        var rectDate = document.getElementById("rect-date");
-        var rectPlace = document.getElementById("rect-place");
+        // design
+        var logoPath = document.getElementById("logo-path");
+        var bgColor = document.getElementById("bg-color");
+        var textColor = "#ffffff";
+        var textBgColor = document.getElementById("text-bg-color");
         
-        // square text
-        var sqrHeadline = document.getElementById("sqr-headline");
-        var sqrText1 = document.getElementById("sqr-text1");
-        var sqrDate = document.getElementById("sqr-date");
-        var sqrPlace = document.getElementById("sqr-place");
+        // text
+        var boldText1 = document.getElementById("bold-text1"),
+            boldText2 = document.getElementById("bold-text2"),
+            boldText3 = document.getElementById("bold-text3"),
+            boldText4 = document.getElementById("bold-text4"),
+            boldText5 = document.getElementById("bold-text5"),
+            boldText6 = document.getElementById("bold-text6");
+        var smallText1 = document.getElementById("small-text1"),
+            smallText2 = document.getElementById("small-text2"),
+            smallText3 = document.getElementById("small-text3"),
+            smallText4 = document.getElementById("small-text4");
         
         // download link
-        var downloadRect = document.getElementById("download-rect");
-        var downloadSquare = document.getElementById("download-square");
+        var downloadText = document.getElementById("download-text");
+        var downloadImage = document.getElementById("download-image");
         
         // timer for keyup interval
         var timer = null;
 
+        // the magic function
         var drawImages = function() {
-            var bgColor = "#ffffff";
-            var ddColor = "#e8e3e3";
-            var ddOrange = "#ff7628";
-            var ddBlack = "#191616";
-            var black = "#000000";
-            var white = "#ffffff";
+                    
+            /*** text ***/
+            (function() {
+                // background
+                text.fillStyle = bgColor.value;
+                text.fillRect(0, 0, 1920, 1080);
             
-            /*** rect ***/
-            rect.fillStyle = bgColor;
-            rect.fillRect(0, 0, 1920, 1080);
+                // text measures
+                var textX = 40, boldTextFont = 170, smallTextFont = 80; 
+                var boldText1Y = 180, boldText2Y = 380;
+                var smallText1Y = 550, smallText2Y = 650;
+                if(! smallText1.value && !smallText2.value) {
+                    // only bold text
+                    boldText1Y += 200;
+                    boldText2Y += 200;
+                }
             
-            // photo
-            rect.drawImage(photo, -480, -80, 2500 * 0.7, 1667 * 0.7);
+                // bold text backgrounds
+                text.font = boldTextFont + "px 'Arial MT Black'";
+                if(textBgColor.value != "") {
+                    var padding = 10;
+                    text.fillStyle = textBgColor.value;                
+                    text.fillRect(textX - padding, boldText1Y - 145 - padding,
+                        text.measureText(boldText1.value).width + 3 * padding,
+                        boldTextFont + 2 * padding);
+                    text.fillRect(textX - padding, boldText2Y - 145 - padding,
+                        text.measureText(boldText2.value).width + 3 * padding,
+                        boldTextFont + 2 * padding);
+                }
+                
+                // set text color
+                text.fillStyle = textColor;  
+                
+                // bold text                          
+                text.fillText(boldText1.value, textX, boldText1Y);        
+                text.fillText(boldText2.value, textX, boldText2Y);
+              
+                // small text
+                text.font = smallTextFont + "px 'Arial'";            
+                text.fillText(smallText1.value, textX, smallText1Y);
+                text.fillText(smallText2.value, textX, smallText2Y);
             
-            // bezier curve
-            rect.beginPath();
-            rect.fillStyle = bgColor;
-            rect.moveTo(900, 0);
-            rect.quadraticCurveTo(1200, 600, 950, 1080);
-            rect.lineTo(1920, 1080);
-            rect.lineTo(1920, 0);
-            rect.closePath();
-            rect.fill();
-            
-            // logo         
-            rect.drawImage(logo, 1610, 40, 2518 * 0.1, 1205 * 0.1);
-            
-            // black headline block
-            rect.fillStyle = black;
-            rect.fillRect(850, 750, 1050, 205);
-                        
-            // headline
-            rect.font = "217px 'Bebas Neue'";
-            rect.fillStyle = white;            
-            rect.fillText(rectHeadline.value, 870, 930);
-            
-            // text1
-            rect.font = "80px 'Bebas Neue'";
-            rect.fillStyle = black;
-            rect.fillText(rectText1.value, 1010, 1050);
-            
-            // date
-            rect.font = "100px 'DejaRip'";
-            rect.fillStyle = black;
-            rect.fillText(rectDate.value, 1100, 350);
-            
-            // time
-            rect.font = "100px 'DejaRip'";
-            rect.fillStyle = black;
-            rect.fillText(rectTime.value, 1100, 500);
-            
-            // location
-            rect.font = "100px 'DejaRip'";
-            rect.fillStyle = black;
-            rect.fillText(rectPlace.value, 1100, 650);
-                        
-            // create download link
-            canvasRect.toBlob(function(blob) {
-                downloadRect.download = "sharepic_dk-sprechstunde_"
-                        + rectDate.value.replace(/([^a-z0-9]+)/gi, '-')
-                        + "_rect.jpg";
-                downloadRect.href = URL.createObjectURL(blob);
-            }, "image/jpeg", 0.92);
+                // logo
+                logo.addEventListener("load", function() {
+                    var width = 1000, height = 380;                
+                    var m = 0.7;
+                    var x = 1920 * 0.5 - width * m * 0.5;
+                    var y = 770;                
+                    text.drawImage(logo, x, y, width * m, height * m);
+                
+                    // ! do the following after loading the image
+                    // ! otherwise the image won't be on the exported image
+                
+                    // create download link
+                    canvasText.toBlob(function(blob) {
+                        downloadText.download = "sharepix_textonly_"
+                                + boldText1.value.replace(/([^a-z0-9]+)/gi, '-')
+                                + "_"
+                                + boldText2.value.replace(/([^a-z0-9]+)/gi, '-')
+                                + ".jpg";
+                        downloadText.href = URL.createObjectURL(blob);
+                    }, "image/jpg", 0.92);
+                
+                }, false);
+                logo.src = logoPath.value;
+            })();
             
             
-            /*** square ***/
-            square.fillStyle = bgColor;
-            square.fillRect(0, 0, 1080, 1080);
+            /*** image ***/
+            (function() { 
+                // background
+                image.fillStyle = bgColor.value;
+                image.fillRect(0, 0, 1920, 1080);
+                image.fillStyle = "orange";
+                image.fillRect(1920 * 0.5, 0, 1920 * 0.5, 1080);
             
-            // photo
-            square.drawImage(photo, -100, -90, 2500 * 0.5, 1667 * 0.5);
+                // text measures
+                var textX = 40, boldTextFont = 120, smallTextFont = 50; 
+                var boldText3Y = 140, boldText4Y = 280,
+                    boldText5Y = 420, boldText6Y = 560;                                        
+                var smallText3Y = 670, smallText4Y = 740;
+                var textBackgroundOffset = 105, padding = 5;
+                if(! smallText3.value && !smallText4.value) {
+                    // only bold text
+                    boldTextFont = 150;
+                    boldText3Y = 180;
+                    boldText4Y = 360;
+                    boldText5Y = 540;
+                    boldText6Y = 720;
+                    textBackgroundOffset = 130;
+                    padding = 10;
+                }
             
-            // bezier curve
-            square.beginPath();
-            square.fillStyle = bgColor;
-            square.moveTo(0, 630);
-            square.quadraticCurveTo(540, 900, 1080, 650);
-            square.lineTo(1080, 1080);
-            square.lineTo(0, 1080);
-            square.closePath();
-            square.fill();
+                // bold text backgrounds
+                image.font = boldTextFont + "px 'Arial MT Black'";
+                if(textBgColor.value != "") {
+                    image.fillStyle = textBgColor.value;                
+                    image.fillRect(textX - padding,
+                        boldText3Y - textBackgroundOffset - padding,
+                        image.measureText(boldText3.value).width + 3 * padding,
+                        boldTextFont + 2 * padding);
+                    image.fillRect(textX - padding,
+                        boldText4Y - textBackgroundOffset - padding,
+                        image.measureText(boldText4.value).width + 3 * padding,
+                        boldTextFont + 2 * padding);
+                    image.fillRect(textX - padding,
+                        boldText5Y - textBackgroundOffset - padding,
+                        image.measureText(boldText5.value).width + 3 * padding,
+                        boldTextFont + 2 * padding);
+                    image.fillRect(textX - padding,
+                        boldText6Y - textBackgroundOffset - padding,
+                        image.measureText(boldText6.value).width + 3 * padding,
+                        boldTextFont + 2 * padding);
+                }
+                
+                // set text color
+                image.fillStyle = textColor;
+                
+                // bold text
+                image.fillText(boldText3.value, textX, boldText3Y);        
+                image.fillText(boldText4.value, textX, boldText4Y);
+                image.fillText(boldText5.value, textX, boldText5Y);        
+                image.fillText(boldText6.value, textX, boldText6Y);
+              
+                // small text
+                image.font = smallTextFont + "px 'Arial'";            
+                image.fillText(smallText3.value, textX, smallText3Y);
+                image.fillText(smallText4.value, textX, smallText4Y);
             
-            // logo
-            square.globalAlpha = 0.6;
-            square.drawImage(logo, 860, 970, 2518 * 0.08, 1205 * 0.08);
-            square.globalAlpha = 1;
-            
-            // black headline block
-            square.fillStyle = black;
-            square.fillRect(70, 650, 730, 150);
-                        
-            // headline
-            square.font = "150px 'Bebas Neue'";
-            square.fillStyle = white;
-            square.fillText(sqrHeadline.value, 85, 780);
-            
-            // text1
-            square.font = "50px 'DejaRip'";
-            square.fillStyle = black;
-            square.fillText(sqrText1.value, 40, 880);
-            
-            // date
-            square.font = "60px 'DejaRip Bold'";
-            square.fillStyle = black;
-            square.fillText(sqrDate.value, 40, 970);
-                       
-            // location
-            square.font = "60px 'DejaRip Bold'";
-            square.fillStyle = black;
-            square.fillText(sqrPlace.value, 40, 1050);
-                        
-            // create download link
-            canvasSquare.toBlob(function(blob) {
-                downloadSquare.download = "sharepic_dk-sprechstunde_"
-                        + sqrDate.value.replace(/([^a-z0-9]+)/gi, '-')
-                        + "_square.jpg";
-                downloadSquare.href = URL.createObjectURL(blob);
-            }, "image/jpeg", 0.92);
+                // logo
+                logo.addEventListener("load", function() {
+                    var width = 1000, height = 380;                
+                    var m = 0.6;
+                    var x = 1920 * 0.25 - width * m * 0.5;
+                    var y = 820;                
+                    image.drawImage(logo, x, y, width * m, height * m);
+                
+                    // ! do the following after loading the image
+                    // ! otherwise the image won't be on the exported image
+                
+                    // photo
+                
+                    // create download link
+                    canvasImage.toBlob(function(blob) {
+                        downloadImage.download = "sharepix_textonly_"
+                                + boldText1.value.replace(/([^a-z0-9]+)/gi, '-')
+                                + "_"
+                                + boldText2.value.replace(/([^a-z0-9]+)/gi, '-')
+                                + ".jpg";
+                        downloadImage.href = URL.createObjectURL(blob);
+                    }, "image/jpg", 0.92);
+                
+                }, false);
+                logo.src = logoPath.value;
+            })();
         };
 
-        // wait for document ready, images and fonts
-        var imagesLoaded = 0;
-        var totalImages = 3; // window, 2 images
-        var imageLoaded = function() {
-            imagesLoaded++;
-            if (imagesLoaded == totalImages) {
-                drawImages();
-                // workaround to wait for fonts
-                window.setTimeout(drawImages, 1000);
-            }
-        };
-
-        // window load
-        window.addEventListener("load", imageLoaded, false);
-        
-        // images
-        logo.addEventListener("load", imageLoaded, false);
-        logo.src = "img/pirdd-logo.png";
-        
-        photo.addEventListener("load", imageLoaded, false);
-        photo.src = "img/anneueckueck.jpg";
-        
         // add eventlistener to inputs
         document.querySelectorAll("input[type='text']").forEach(function(element) {
             element.addEventListener("keyup", function() {
@@ -308,5 +366,16 @@ Made from jankossick@online.de with the help of MDN and Stackoverflow.
                 timer = window.setTimeout(drawImages, 1000);                
             });
         });
+        document.querySelectorAll("select").forEach(function(element) {
+            element.addEventListener("change", drawImages);
+        });
+        
+        // wait for document ready and fonts
+        window.addEventListener("load", function() {
+            drawImages();
+            
+            // workaround to wait for fonts
+            window.setTimeout(drawImages, 1000);
+        }, false);
     </script>
 </body></html>
