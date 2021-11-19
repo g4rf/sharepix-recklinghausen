@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-Made from jankossick@online.de with the help of MDN and Stackoverflow.
+Made by jan@neustadtpiraten.de with the help of MDN and Stackoverflow.
 -->
 <html><head>
     <title>sharepix Recklinghausen</title>
@@ -155,6 +155,11 @@ Made from jankossick@online.de with the help of MDN and Stackoverflow.
             <input type="text" id="small-text4" value="" />
         </label>
         
+        <label>
+            <div>picture (8:9, opt. 960×1080px)</div>
+            <input type="file" id="photo" />
+        </label>
+        
         <a id="download-image" class="download">download with image</a>
     </info>
 
@@ -170,10 +175,6 @@ Made from jankossick@online.de with the help of MDN and Stackoverflow.
         var canvasImage = document.getElementById("sharepic-image");
         var text = canvasText.getContext('2d');
         var image = canvasImage.getContext('2d');
-        
-        // images
-        var logo = new Image();
-        var photo = new Image();
         
         // design
         var logoPath = document.getElementById("logo-path");
@@ -192,6 +193,9 @@ Made from jankossick@online.de with the help of MDN and Stackoverflow.
             smallText2 = document.getElementById("small-text2"),
             smallText3 = document.getElementById("small-text3"),
             smallText4 = document.getElementById("small-text4");
+            
+        // photo
+        var photoFile = document.getElementById("photo");
         
         // download link
         var downloadText = document.getElementById("download-text");
@@ -223,13 +227,15 @@ Made from jankossick@online.de with the help of MDN and Stackoverflow.
                 text.font = boldTextFont + "px 'Arial MT Black'";
                 if(textBgColor.value != "") {
                     var padding = 10;
-                    text.fillStyle = textBgColor.value;                
-                    text.fillRect(textX - padding, boldText1Y - 145 - padding,
-                        text.measureText(boldText1.value).width + 3 * padding,
-                        boldTextFont + 2 * padding);
-                    text.fillRect(textX - padding, boldText2Y - 145 - padding,
-                        text.measureText(boldText2.value).width + 3 * padding,
-                        boldTextFont + 2 * padding);
+                    text.fillStyle = textBgColor.value;    
+                    if(boldText1.value)            
+                        text.fillRect(textX - padding, boldText1Y - 145 - padding,
+                            text.measureText(boldText1.value).width + 3 * padding,
+                            boldTextFont + 2 * padding);
+                    if(boldText2.value)
+                        text.fillRect(textX - padding, boldText2Y - 145 - padding,
+                            text.measureText(boldText2.value).width + 3 * padding,
+                            boldTextFont + 2 * padding);
                 }
                 
                 // set text color
@@ -245,6 +251,7 @@ Made from jankossick@online.de with the help of MDN and Stackoverflow.
                 text.fillText(smallText2.value, textX, smallText2Y);
             
                 // logo
+                var logo = new Image();
                 logo.addEventListener("load", function() {
                     var width = 1000, height = 380;                
                     var m = 0.7;
@@ -298,23 +305,27 @@ Made from jankossick@online.de with the help of MDN and Stackoverflow.
                 // bold text backgrounds
                 image.font = boldTextFont + "px 'Arial MT Black'";
                 if(textBgColor.value != "") {
-                    image.fillStyle = textBgColor.value;                
-                    image.fillRect(textX - padding,
-                        boldText3Y - textBackgroundOffset - padding,
-                        image.measureText(boldText3.value).width + 3 * padding,
-                        boldTextFont + 2 * padding);
-                    image.fillRect(textX - padding,
-                        boldText4Y - textBackgroundOffset - padding,
-                        image.measureText(boldText4.value).width + 3 * padding,
-                        boldTextFont + 2 * padding);
-                    image.fillRect(textX - padding,
-                        boldText5Y - textBackgroundOffset - padding,
-                        image.measureText(boldText5.value).width + 3 * padding,
-                        boldTextFont + 2 * padding);
-                    image.fillRect(textX - padding,
-                        boldText6Y - textBackgroundOffset - padding,
-                        image.measureText(boldText6.value).width + 3 * padding,
-                        boldTextFont + 2 * padding);
+                    image.fillStyle = textBgColor.value;
+                    if(boldText3.value)                
+                        image.fillRect(textX - padding,
+                            boldText3Y - textBackgroundOffset - padding,
+                            image.measureText(boldText3.value).width + 3 * padding,
+                            boldTextFont + 2 * padding);
+                    if(boldText4.value)    
+                        image.fillRect(textX - padding,
+                            boldText4Y - textBackgroundOffset - padding,
+                            image.measureText(boldText4.value).width + 3 * padding,
+                            boldTextFont + 2 * padding);
+                    if(boldText5.value)
+                        image.fillRect(textX - padding,
+                            boldText5Y - textBackgroundOffset - padding,
+                            image.measureText(boldText5.value).width + 3 * padding,
+                            boldTextFont + 2 * padding);
+                    if(boldText6.value)
+                        image.fillRect(textX - padding,
+                            boldText6Y - textBackgroundOffset - padding,
+                            image.measureText(boldText6.value).width + 3 * padding,
+                            boldTextFont + 2 * padding);
                 }
                 
                 // set text color
@@ -331,7 +342,24 @@ Made from jankossick@online.de with the help of MDN and Stackoverflow.
                 image.fillText(smallText3.value, textX, smallText3Y);
                 image.fillText(smallText4.value, textX, smallText4Y);
             
+                // create download link
+                var createDownloadImage = function() {
+                    canvasImage.toBlob(function(blob) {
+                        downloadImage.download = "sharepix_textonly_"
+                            + boldText3.value.replace(/([^a-z0-9]+)/gi, '-')
+                            + "_"
+                            + boldText4.value.replace(/([^a-z0-9]+)/gi, '-')
+                            + "_"
+                            + boldText5.value.replace(/([^a-z0-9]+)/gi, '-')
+                            + "_"
+                            + boldText6.value.replace(/([^a-z0-9]+)/gi, '-')
+                            + ".jpg";
+                        downloadImage.href = URL.createObjectURL(blob);
+                    }, "image/jpg", 0.92);
+                };
+                
                 // logo
+                var logo = new Image();
                 logo.addEventListener("load", function() {
                     var width = 1000, height = 380;                
                     var m = 0.6;
@@ -343,30 +371,69 @@ Made from jankossick@online.de with the help of MDN and Stackoverflow.
                     // ! otherwise the image won't be on the exported image
                 
                     // photo
-                
-                    // create download link
-                    canvasImage.toBlob(function(blob) {
-                        downloadImage.download = "sharepix_textonly_"
-                                + boldText1.value.replace(/([^a-z0-9]+)/gi, '-')
-                                + "_"
-                                + boldText2.value.replace(/([^a-z0-9]+)/gi, '-')
-                                + ".jpg";
-                        downloadImage.href = URL.createObjectURL(blob);
-                    }, "image/jpg", 0.92);
-                
+                    if(photoFile.files.length) {
+                        // has photo
+                        var photo = new Image();
+                        photo.addEventListener("load", function() {
+                        
+                            // do some pixel magic
+                            var width = photo.naturalWidth,
+                                height = photo.naturalHeight,
+                                x = 1920 * 0.5, y = 0;
+                            //<  >
+                            if(width < 1920 * 0.5) { // scale up
+                                width = 1920 * 0.5;
+                                height = width * photo.naturalHeight 
+                                                        / photo.naturalWidth;
+                            }
+                            if(height < 1080) { // scale up
+                                height = 1080;
+                                width = height * photo.naturalWidth 
+                                                        / photo.naturalHeight;
+                            }
+                            if(width > 1920 * 0.5 && height > 1080) { // scale down 
+                                var estWidth = 1080 * photo.naturalWidth /
+                                                        photo.naturalHeight;
+                                var estHeight = 1920 * 0.5 * photo.naturalHeight /
+                                                        photo.naturalWidth;
+                                if(estWidth < 1920 * 0.5) {
+                                    width = 1920 * 0.5;
+                                    height = estHeight;
+                                } else {
+                                    width = estWidth;
+                                    height = 1080;
+                                }  
+                            }
+                            
+                            image.drawImage(photo, x, y, width, height);
+                    
+                            // ! do the following after loading the image
+                            // ! otherwise the image won't be on the exported image
+                        
+                            // create download link
+                            createDownloadImage();        
+                        }, false);
+                        photo.src = URL.createObjectURL(photoFile.files[0]);
+                    } else {
+                        // no photo
+                        createDownloadImage();
+                    }
+                    
                 }, false);
                 logo.src = logoPath.value;
             })();
         };
 
         // add eventlistener to inputs
-        document.querySelectorAll("input[type='text']").forEach(function(element) {
+        document.querySelectorAll("input[type='text']")
+        .forEach(function(element) {
             element.addEventListener("keyup", function() {
                 window.clearInterval(timer);
                 timer = window.setTimeout(drawImages, 1000);                
             });
         });
-        document.querySelectorAll("select").forEach(function(element) {
+        document.querySelectorAll("select, input[type='file']")
+        .forEach(function(element) {
             element.addEventListener("change", drawImages);
         });
         
