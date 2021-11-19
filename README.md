@@ -12,3 +12,8 @@ For development purposes you can start a **local webserver**. Install `node` and
 locally and then run `npm install` in the root folder. That will install a local 
 https server. Then run the `server.sh` and open https://127.0.0.1:8080/generator/ in 
 your browser.
+
+## use
+
+Open the project in your browser and start sharepixing. Just zoom out the browser
+window, to see the whole sharepix.
